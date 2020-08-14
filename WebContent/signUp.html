@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/css/style.css">
+    <title>海创网盘</title>
+</head>
+<body>
+            <div class="container">
+                <div class="login">
+                  <div class="text">注册</div>
+                  <div class="form-item">
+                    <input type="text" placeholder="请输入用户名" id="username" value="">
+                    <input type="password" placeholder="请输入密码" id="password1" value="">
+                  </div>
+                  <div class="loginbtn"  onclick="signUp()">注册</div>
+                  <div class="btn-back"></div>
+                  <div class="other">
+                    <a href="./login.html" >已有账号?/登录</a>
+                  </div>
+                </div>
+                <iframe src="./bottom.html" id="iframebm"></iframe>
+                </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="./src/js/jquery.js"></script>
+<script src="http://cdn.suoluomei.com/common/js2.0/axios/axios.min.js"></script>
+<script>
+    window.onload=function(){
+        //获取账号和密码
+        var username=document.querySelector("#username");
+        var password1=document.querySelector("#password1");
+        //获取注册按钮
+        var loginbtn=document.querySelector(".loginbtn");
+             //点击登录按钮得到输入的账号与密码
+            console.log(username.value,password1.value)
+    }
+    function signUp(){
+//发送请求         
+let result = axios({
+                          method: 'post',
+                          url: 'http://47.97.170.173:8080/net/oneself/register.do',
+                          data:{username:username.value,password:password1.value},
+                          transformRequest:[function(data){
+                              let ret = '';
+                              for(let i in data){
+                                  ret += encodeURIComponent(i)+'='+encodeURIComponent(data[i])+"&";
+                              }
+                              return ret;
+                          }],
+                          header:{
+                              'Content-Type':'application/x-www-form-urlencoded'
+                          }
+                              }).then(function (data) {
+                          console.log(data);
+                          console.log(data.data.result);
+                          if(data.data.result=="注册成功！"){
+                                alert('注册成功')
+                            window.location.href="./login.html";
+                                }
+                                  else{
+                                    alert("该账户和密码已注册");
+                                  }
+                        })
+                        .catch(function (error) {
+                          alert("注册失败")
+                          console.log(error);
+                });
+            //得到是否选择了自动登录按钮，需要保存数据，下一次自动登录， islogin.checked===true的话，选择了自动登录 
+
+    }
+          
+    
+    
+</script>
+</html>

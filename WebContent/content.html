@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <button   onclick="back()">返回</button>
+    <div id="content">
+        <p>a</p>
+    </div>
+</body>
+<script src="./src/js/jquery-1.10.1.js"></script>
+<script>
+    function back(){
+        window.history.back()
+    }
+   var getitems= JSON.parse(window.localStorage.getItem("item"))
+   console.log(getitems);
+   var content='';
+   content="<p>"+"fileId："+getitems.fileId+"</p>"+
+            "<p>"+"fileName："+getitems.fileName+"</p>"+
+            "<p>"+"fileUrl："+getitems.fileUrl+"</p>"+
+            "<p>"+"filesname："+getitems.filesname+"</p>"+
+            "<p>"+"pkgname："+getitems.pkgname+"</p>"+
+            "<p>"+"fileId："+getitems.fileId+"</p>"+
+            "<p>"+"versioncode："+getitems.versioncode+"</p>"+
+            "<p>"+"versionname："+getitems.versionname+"</p>"
+    $('#content')[0].innerHTML=content
+</script>
+</html>
